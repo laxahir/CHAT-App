@@ -13,8 +13,8 @@ function App() {
     <>
       <div className="p-2 w-screen h-screen flex items-center justify-center">
         <Routes>
-          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route element={<VerifyUser />}>
             <Route path="/" element={<Home />} />
           </Route>
