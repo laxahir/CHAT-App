@@ -169,6 +169,19 @@ const Register = () => {
             {loading ? "loading.." : "Register"}
           </button>
         </form>
+<<<<<<< HEAD
+=======
+        <div className="pt-2 ">
+          <p className="text-sm font-semibold text-gray-800">
+            Don't have an Account?{" "}
+            <Link to={"/register"}>
+              <span className="text-gray-950 font-bold underline cursor-pointer hover:text-gray-950">
+                Register Now
+              </span>
+            </Link>
+          </p>
+        </div>
+>>>>>>> 29d479e691e6ef6d392cfd54755818dc38f6542c
       </div>
     </div>
   );
