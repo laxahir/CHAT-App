@@ -69,7 +69,7 @@ export const SocketContextProvider = ({ children }) => {
       return;
     }
 
-    const newSocket = io("http://localhost:3000", {
+    const newSocket = io("https://lax-chatapp.onrender.com", {
       query: { userId: authUser._id },
     });
 
