@@ -93,103 +93,95 @@ function MessageData({ onBackUser }) {
     <div className="md:min-w-[500px] h-[99%] flex flex-col py-2">
       {selectedConversation === null ? (
         <div className="flex items-center justify-center w-full h-full">
-          <div className="px-4 text-center text-2x text-gray-950 font-semibold flex flex-col items-center gap-2">
+          <div className="px-4 text-center text-gray-950 font-semibold flex flex-col items-center gap-2 animate-fade-in">
             <p className="text-2xl">Welcome!!🙏 {authUser.username}</p>
-            <p className="text-lg">Select a chat to satart messaging..</p>
-            <IoChatbubbleEllipsesSharp className="text-6xl text-center" />
+            <p className="text-lg">Select a chat to start messaging..</p>
+            <IoChatbubbleEllipsesSharp className="text-6xl text-center animate-bounce text-sky-900" />
           </div>
         </div>
       ) : (
         <>
-          <div className="flex justify-between gap-1 bg-sky-600 md:px-2 rounded-lg h-10 md:h-12">
-            <div className="flex gap-2 md:justify-between items-center w-full">
-              <div className="md:hidden ml:1 self-center">
-                <button
-                  onClick={() => onBackUser(true)}
-                  className=" rounded-full px-2 py-1 self-center"
-                >
-                  <IoArrowBackCircle size={25} />
-                </button>
-              </div>
-              <div className="flex justify-between mr-2 gap-2">
-                <div className="self-center">
-                  <img
-                    className="rounded-full w-6 h-6 md:h-10 cursor-pointer"
-                    src={selectedConversation?.profilepic}
-                  />
-                </div>
-                <span className="text-gray-950 self-center text-sm md:text-xl font-bold">
-                  {selectedConversation?.username}
-                </span>
-              </div>
+          {/* Header */}
+          <div className="flex justify-between items-center gap-2 bg-sky-600 md:px-4 px-2 py-2 rounded-lg mb-2 shadow-md animate-slide-in-top">
+            <button
+              onClick={() => onBackUser(true)}
+              className="lg:hidden text-white hover:scale-110 transition-transform"
+            >
+              <IoArrowBackCircle size={25} />
+            </button>
+            <div className="flex items-center gap-3 w-[100px] h-[50px]">
+              <img
+                src={`http://localhost:3000/profileimg/${selectedConversation?.profilePic}`}
+                className="w-full h-full object-cover rounded-full border-1 border-white shadow md:w-10 md:h-10 cursor-pointer hover:scale-105 transition-transform"
+                alt="User"
+              />
+              <span className="text-white text-sm md:text-xl font-bold">
+                {selectedConversation?.username}
+              </span>
             </div>
           </div>
 
-          <div className="flex-1 overflow-auto mb-2">
-            {loading && (
-              <div className="flex w-full h-full flex-col items-center justify-center gap-4 bg-transparent">
-                <div className="loading loading-spinner"></div>
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto px-2 space-y-3 scroll-smooth">
+            {loading ? (
+              <div className="flex justify-center items-center h-full animate-pulse">
+                <div className="loading loading-spinner text-sky-600 scale-150" />
               </div>
-            )}
-            {!loading && messages?.length === 0 && (
-              <p className="text-center text-white items-center">
+            ) : messages?.length === 0 ? (
+              <p className="text-center text-gray-600 italic animate-fade-in">
                 Send a message to start conversation
               </p>
-            )}
-            {!loading &&
-              messages?.length > 0 &&
-              messages?.map((message) => (
+            ) : (
+              messages.map((message) => (
                 <div
-                  className="text-white"
                   key={message?._id}
                   ref={lastMessageRef}
+                  className={`flex ${
+                    message.senderId === authUser._id
+                      ? "justify-end"
+                      : "justify-start"
+                  } animate-fade-in-up`}
                 >
                   <div
-                    className={`chat ${
+                    className={`rounded-xl px-4 py-2 text-sm break-words shadow-lg max-w-[80%] transition-all duration-200 ease-in-out hover:scale-[1.02] ${
                       message.senderId === authUser._id
-                        ? "chat-end"
-                        : "chat-start"
+                        ? "bg-sky-600 text-white"
+                        : "bg-white text-gray-900"
                     }`}
                   >
-                    <div className="chat-image avatar"></div>
-                    <div
-                      className={`chat-bubble  ${
-                        message.senderId === authUser._id ? "bg-sky-600" : ""
-                      }`}
-                    >
-                      {message?.message}
-                    </div>
-                    <div className="chat-footer text-[10px] opacity-80 text-white">
-                      {/* {new Date(message?.createdAt).toLocaleDateString("en-IN")} */}
-                      {new Date(message?.createdAt).toLocaleDateString(
+                    {message.message}
+                    <div className="text-[10px] mt-1 opacity-60 text-end">
+                      {new Date(message?.createdAt).toLocaleTimeString(
                         "en-IN",
                         {
-                          hour: "numeric",
-                          minute: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
                         }
                       )}
                     </div>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </div>
 
-          <form onSubmit={handleSubmit} className="rounded-full text-black">
-            <div className="w-full rounded-full flex items-center bg-white">
+          {/* Input */}
+          <form onSubmit={handleSubmit} className="mt-3 animate-fade-in-up ">
+            <div className="w-full bg-white flex items-center border hover:border-sky-600 border-gray-600 rounded-full shadow px-3 py-1">
               <input
-                className="w-full bg-transparent outline-none px-4 rounded-full"
                 type="text"
                 value={sendData}
                 onChange={handleMessage}
                 placeholder="Type your message..."
+                className="flex-grow text-gray-600 bg-transparent px-2 py-2 text-sm outline-none"
               />
               <button type="submit">
                 {sending ? (
-                  <div className="loading loading-spinner"></div>
+                  <div className="loading loading-spinner text-sky-600 scale-125" />
                 ) : (
                   <IoSend
-                    size={25}
-                    className="text-sky-700 cursor-pointer rounded-full bg-gray-800 w-10 h-auto p-1"
+                    size={30}
+                    className="text-white bg-sky-700 hover:bg-sky-900 transition p-1 rounded-full"
                   />
                 )}
               </button>

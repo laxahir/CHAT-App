@@ -1,9 +1,12 @@
 import express from "express"
 import { userLogin, userLogout, userRegister } from "../controllers/userController.js";
+import { uploadImage } from "../middleware/upload.js";
+
+
 
 const router = express.Router();
 
-router.post("/register", userRegister)
+router.post("/register", uploadImage, userRegister)
 
 router.post("/login", userLogin);
 

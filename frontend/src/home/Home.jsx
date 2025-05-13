@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-// import { useAuth } from "../context/AuthContext";
 import Sidebar from "./components/Sidebar";
 import MessageData from "./components/MessageData";
 
 const Home = () => {
-  // const { authUser } = useAuth();
   const [selectedUser, setSelectedUser] = useState(null);
   const [isSidebar, setIsSidebar] = useState(true);
 

@@ -4,16 +4,27 @@ import jwtToken from "../utills/jwtToken.js";
 
 export const userRegister = async (req, res) => {
     try {
-        const { fullname, username, email, gender, password, profilepic } = req.body;
+        const { fullname, username, email, gender, password } = req.body;
 
-        const user = await User.findOne({ username, email });
+        // Check if username OR email already exists (use $or)
+        const user = await User.findOne({
+            $or: [{ username }, { email }]
+        });
 
-        if (user) return res.status(500).send({ success: false, massage: "User or email Already exist" });
+        if (user) {
+            return res.status(400).send({ success: false, message: "Username or email already exists." });
+        }
 
+        // Hash password
         const hashpassword = bcryptjs.hashSync(password, 10);
 
-        const profilePic = profilepic;
+        // Set profilePic from file if uploaded
+        let profilePic = "";
+        if (req.file?.filename) {
+            profilePic = req.file.filename;
+        }
 
+        // Create new user
         const newUser = new User({
             fullname,
             username,
@@ -21,31 +32,31 @@ export const userRegister = async (req, res) => {
             password: hashpassword,
             gender,
             profilePic
-        })
+        });
 
-        if (newUser) {
-            await newUser.save();
-            jwtToken(newUser._id, res);
-        } else {
-            res.status(500).send({ success: false, massage: "Invalid User Data" })
-        }
+        await newUser.save();
+        jwtToken(newUser._id, res); // Assumes this sets a cookie/token
 
+        // Respond with user data
         res.status(201).send({
+            success: true,
             _id: newUser._id,
             fullname: newUser.fullname,
             username: newUser.username,
-            profilepic: newUser.profilepic,
-            email: newUser.email
-        })
+            email: newUser.email,
+            profilePic: newUser.profilePic
+        });
 
     } catch (error) {
+        console.error("Register Error:", error);
         res.status(500).send({
             success: false,
-            massage: error
-        })
-        console.log(error);
+            message: "Server error. Please try again later."
+        });
     }
-}
+};
+
+
 
 export const userLogin = async (req, res) => {
     try {
@@ -61,9 +72,9 @@ export const userLogin = async (req, res) => {
             _id: user._id,
             fullname: user.fullname,
             username: user.username,
-            profilepic: user.profilepic,
+            profilePic: user.profilePic,
             email: user.email,
-            message: "Succesfully Login"
+            message: "Succesfully Login good"
         })
     } catch (error) {
         res.status(500).send({

@@ -43,17 +43,20 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mix-w-full mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-lg bg-gray-400 bg-clip-padding background-filter backdrop-blur-lg bg-opacity-0">
-        <h1 className="text-3xl font-bold text-center text-gray-300">
-          <span className="text-gray-950">Lax's App</span>
+    <div className="min-h-[600px] flex items-center justify-center  p-4">
+      <div className="w-full max-w-md p-8 rounded-2xl shadow-2xl bg-white/30 backdrop-blur-lg border bg-gradient-to-br from-blue-100 via-white to-blue-300 border-white/40 transition-all duration-300">
+        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-6 tracking-tight">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-800">
+            Lax's App
+          </span>
         </h1>
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          <div className="text-start">
-            <label className="label p-2">
-              <span className="font-bold text-gray-950 text-xl label-text">
-                Email:
-              </span>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              htmlFor="email"
+              className="block mb-2 text-lg font-semibold text-gray-700"
+            >
+              Email
             </label>
             <input
               onChange={handleInput}
@@ -61,14 +64,15 @@ function Login() {
               type="email"
               placeholder="Enter your email"
               required
-              className="w-full input input-bordered h-10"
+              className="w-full px-4 py-3 text-gray-600 rounded-xl bg-white bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
             />
           </div>
-          <div className="text-start">
-            <label className="label p-2">
-              <span className="font-bold text-gray-950 text-xl label-text">
-                Password:
-              </span>
+          <div>
+            <label
+              htmlFor="password"
+              className="block mb-2 text-lg font-semibold text-gray-700"
+            >
+              Password
             </label>
             <input
               onChange={handleInput}
@@ -76,28 +80,31 @@ function Login() {
               type="password"
               placeholder="Enter your password"
               required
-              className="w-full input input-bordered h-10"
+              className="w-full text-gray-600 px-4 py-3 rounded-xl bg-white bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all"
             />
           </div>
-          {loading && <div className="loader">Loading...</div>}
+          {loading && (
+            <div className="text-center text-blue-700 font-semibold">
+              Loading...
+            </div>
+          )}
           <button
             type="submit"
-            className="mt-4 self-center w-auto px-2 py-1 bg-gray-950 hover:bg-gray-900 text-lg text-white rounded-lg hover:scale-105"
-            disabled={loading} // Disable the button while loading
+            className="w-full py-3 mt-2 bg-gradient-to-r from-blue-700 to-indigo-700 text-white font-bold rounded-xl shadow-md hover:scale-105 transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={loading}
           >
-            {loading ? "loading.." : "Login"}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-        <div className="pt-2 ">
-          <p className="text-sm font-semibold text-gray-800">
-            Don't have an Account?{" "}
-            <Link to={"/register"}>
-              <span className="text-gray-950 font-bold underline cursor-pointer hover:text-gray-950">
-                Register Now
-              </span>
-            </Link>
-          </p>
-        </div>
+        <p className="mt-6 text-center text-gray-700 font-medium">
+          Don't have an account?{" "}
+          <Link
+            to="/register"
+            className="text-blue-700 font-bold hover:underline"
+          >
+            Register Now
+          </Link>
+        </p>
       </div>
     </div>
   );

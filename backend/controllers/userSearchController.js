@@ -6,15 +6,6 @@ export const getUserBySearch = async (req, res) => {
 
         const search = req.query.search || "";
         const currentUserId = req.user._id;
-        // const users = await User.find({
-        //     _id: { $ne: currentUserId },
-        //     $or: [
-        //         { username: { $regex: search, $options: "i" } },
-        //         { fullname: { $regex: search, $options: "i" } }
-        //     ]
-        // }).select("-password");
-
-        // res.status(200).send(users);
 
         const users = await User.find({
             _id: { $ne: currentUserId },
@@ -33,36 +24,6 @@ export const getUserBySearch = async (req, res) => {
         console.log(`search : ${error}`);
     }
 }
-
-
-// export const getUserBySearch = async (req, res) => {
-//     try {
-//         const search = req.query.search?.trim() || "";
-
-//         if (!search) {
-//             return res.status(200).send([]);
-//         }
-
-//         // Search for users where either the username or fullname contains the search string (case-insensitive)
-//         const users = await User.find({
-//             $or: [
-//                 { username: { $regex: search, $options: "i" } },
-//                 { fullname: { $regex: search, $options: "i" } }
-//             ]
-//         }).select("-password"); // Exclude password from response
-
-//         res.status(200).send(users);
-
-//     } catch (error) {
-//         console.error("Search error:", error);
-//         res.status(500).send({
-//             success: false,
-//             message: error.message || "Something went wrong"
-//         });
-//     }
-// };
-
-
 
 
 
