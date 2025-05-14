@@ -38,12 +38,14 @@ console.log(__dirname);
 
 
 // Serve the frontend (Production)
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-// Serve index.html for root route
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
+
+path.join(__dirname, '../frontend/dist/index.html')
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
