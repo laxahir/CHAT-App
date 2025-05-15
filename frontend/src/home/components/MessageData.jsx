@@ -42,7 +42,7 @@ function MessageData({ onBackUser }) {
       setLoading(true);
       try {
         const get = await axios.get(
-          `/api/message/${selectedConversation?._id}`
+          `/api/message/chat/${selectedConversation?._id}`
         );
         const data = await get.data;
         if (data.success === false) {

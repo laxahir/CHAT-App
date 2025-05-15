@@ -10,6 +10,11 @@ import cookieParser from "cookie-parser";
 
 import { app, server } from "./SocketIO/socket.js";
 
+import { fileURLToPath } from "url";
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
 // Resolve directory paths for static files
 const __dirname = path.resolve();
 
@@ -33,17 +38,19 @@ app.use("/api/user", userRouter);
 // Parse form data
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/profileimg', express.static(path.join(__dirname, 'backend', 'public', 'profileimg')));
+app.use('/profileimg', express.static(path.join(__dirname, "..", 'backend', 'public', 'profileimg')));
 console.log(__dirname);
 
 
-// Serve the frontend (Production)
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, "..", "frontend", "dist")));
 
 // Serve index.html for root route
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname,
+        "..", "frontend", "dist", "index.html"));
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
