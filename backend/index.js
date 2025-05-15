@@ -10,9 +10,12 @@ import cookieParser from "cookie-parser";
 
 import { app, server } from "./SocketIO/socket.js";
 
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // Resolve directory paths for static files
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 dotenv.config();
 
