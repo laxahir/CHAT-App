@@ -43,8 +43,12 @@ app.use(express.static(path.join(__dirname, "..", "frontend", "dist")));
 
 // Serve index.html for root route
 app.get("*", (req, res) => {
+<<<<<<< HEAD
     res.sendFile(path.join(__dirname,
         "..", "frontend", "dist", "index.html"));
+=======
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+>>>>>>> 20c31f1fd42709ad074af255b917d13b4aeaf9c1
 });
 
 
