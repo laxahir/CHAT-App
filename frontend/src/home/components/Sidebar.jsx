@@ -121,7 +121,7 @@ const Sidebar = ({ onSelectUser }) => {
   };
 
   const renderUserList = (users) => (
-    <div className="w-full max-h-[calc(100vh-180px)] overflow-y-auto px-2 pb-4 custom-scrollbar">
+    <div className="w-full  overflow-y-auto px-2 pb-4 custom-scrollbar">
       {users
         .filter((user) => user && user._id)
         .map((user) => (

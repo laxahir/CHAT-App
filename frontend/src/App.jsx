@@ -13,11 +13,11 @@ function App() {
       <div className="w-screen min-h-screen flex items-center justify-center p-2">
         <Routes>
           {/* Redirect from root to /register */}
-          <Route path="/" element={<Navigate to="/register" />} />
+          {/* <Route path="/register" element={<Navigate to="/register" />} /> */}
 
           {/* Public routes */}
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
 
           {/* Protected route */}
           <Route element={<VerifyUser />}>

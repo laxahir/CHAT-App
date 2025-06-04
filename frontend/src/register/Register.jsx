@@ -69,7 +69,7 @@ const Register = () => {
       localStorage.setItem("chatapp", JSON.stringify(data));
       setAuthUser(data);
       setLoading(false);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       setLoading(false);
       console.error(error);

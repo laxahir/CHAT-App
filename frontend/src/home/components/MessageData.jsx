@@ -90,7 +90,7 @@ function MessageData({ onBackUser }) {
   };
 
   return (
-    <div className="md:min-w-[500px] h-[99%] flex flex-col py-2">
+    <div className="md:min-w-[500px]  flex h-screen flex-col py-2">
       {selectedConversation === null ? (
         <div className="flex items-center justify-center w-full h-full">
           <div className="px-4 text-center text-gray-950 font-semibold flex flex-col items-center gap-2 animate-fade-in">
