@@ -1,19 +1,25 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "./login/Login";
-import { Route, Routes } from "react-router-dom";
 import Register from "./register/Register";
-import Home from "./home/Home.jsx";
+import Home from "./home/Home";
 import { VerifyUser } from "./utils/VerifyUser";
 
 function App() {
   return (
     <>
-      <div className="p-2 w-screen h-screen flex items-center justify-center">
+      <div className="w-screen min-h-screen flex items-center justify-center p-2">
         <Routes>
-          <Route path="/" element={<Register />} />
+          {/* Redirect from root to /register */}
+          <Route path="/" element={<Navigate to="/register" />} />
+
+          {/* Public routes */}
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+
+          {/* Protected route */}
           <Route element={<VerifyUser />}>
             <Route path="/home" element={<Home />} />
           </Route>

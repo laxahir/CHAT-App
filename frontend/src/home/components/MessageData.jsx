@@ -111,7 +111,7 @@ function MessageData({ onBackUser }) {
             </button>
             <div className="flex items-center gap-3 w-[100px] h-[50px]">
               <img
-                src={`https://localhost:3000.onrender.com/profileimg/${selectedConversation?.profilePic}`}
+                src={`https://chat-app-dr53.onrender.com/profileimg/${selectedConversation?.profilePic}`}
                 className="w-full h-full object-cover rounded-full border-1 border-white shadow md:w-10 md:h-10 cursor-pointer hover:scale-105 transition-transform"
                 alt="User"
               />

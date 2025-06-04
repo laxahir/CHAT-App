@@ -4,5 +4,5 @@ import { useAuth } from "../context/AuthContext";
 
 export const VerifyUser = () => {
   const { authUser } = useAuth();
-  return authUser ? <Outlet /> : <Navigate to={"/login"} />;
+  return authUser ? <Outlet /> : <Navigate to="/login" />;
 };

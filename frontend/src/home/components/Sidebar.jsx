@@ -139,7 +139,7 @@ const Sidebar = ({ onSelectUser }) => {
               {/* Avatar */}
               <div className="relative w-[52px] h-[52px]">
                 <img
-                  src={`https://localhost:3000.onrender.com/profileimg/${user.profilePic}`}
+                  src={`https://chat-app-dr53.onrender.com/profileimg/${user.profilePic}`}
                   alt={user.fullname}
                   className="w-full h-full object-cover rounded-full border-2 border-white shadow"
                 />
