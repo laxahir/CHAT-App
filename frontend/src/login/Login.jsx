@@ -99,7 +99,7 @@ function Login() {
         <p className="mt-6 text-center text-gray-700 font-medium">
           Don't have an account?{" "}
           <Link
-            to="/register"
+            to="/"
             className="text-blue-700 font-bold hover:underline"
           >
             Register Now
