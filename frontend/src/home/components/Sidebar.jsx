@@ -19,6 +19,9 @@ const Sidebar = ({ onSelectUser }) => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [newMessageUsers, setNewMessageUsers] = useState("");
   const { onlineUser, socket } = useSocketContext();
+  const BASE_URL =
+    import.meta.env.VITE_BACKEND_URL || "https://chat-app-dr53.onrender.com";
+
   const {
     messages,
     setMessages,
@@ -139,7 +142,7 @@ const Sidebar = ({ onSelectUser }) => {
               {/* Avatar */}
               <div className="relative w-[52px] h-[52px]">
                 <img
-                  src={`https://chat-app-dr53.onrender.com/profileimg/${user.profilePic}`}
+                  src={`${BASE_URL}/profileimg/${user?.profilePic}`}
                   alt={user.fullname}
                   className="w-full h-full object-cover rounded-full border-2 border-white shadow"
                 />
@@ -195,7 +198,7 @@ const Sidebar = ({ onSelectUser }) => {
         <div className="w-[50px] h-[50px]">
           <img
             onClick={() => navigate(`/profile/${authUser._id}`)}
-            src={`http://localhost:3000/profileimg/${authUser?.profilePic}`}
+            src={`${BASE_URL}/profileimg/${authUser?.profilePic}`}
             className="w-full h-full object-cover rounded-full border-1 border-white shadow cursor-pointer hover:scale-105 transition-transform"
             alt={authUser?.username}
           />
