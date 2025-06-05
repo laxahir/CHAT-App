@@ -8,29 +8,36 @@ const Home = () => {
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);
-    setIsSidebar(false);
+    setIsSidebar(false); // Hide sidebar on mobile
   };
 
   const handleShowSidebar = () => {
-    setIsSidebar(true);
     setSelectedUser(null);
+    setIsSidebar(true); // Show sidebar again
   };
 
   return (
-    <div className="flex justify-between min-w-full md:min-w-[750px] md:max-w-[75%] px-2 h-[95%] md:h-full rounded-xl shadow-lg bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
-      {/* ----- */}
-      <div className={`w-full py-2 md:flex ${isSidebar ? "" : "hidden"}`}>
+    <div className="flex w-full h-[90vh] md:h-100px overflow-hidden px-2 rounded-xl shadow-lg bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
+      {/* Sidebar */}
+      <div
+        className={`transition-all duration-300
+          ${isSidebar ? "block w-full" : "hidden"}
+          md:flex md:w-[30%]`}
+      >
         <Sidebar onSelectUser={handleUserSelect} />
       </div>
+
+      {/* Divider - Desktop Only */}
+      <div className="divider divider-horizontal px-3 hidden md:flex"></div>
+
+      {/* Message Container */}
       <div
-        className={`divider divider-horizontal px-3 md:flex ${
-          isSidebar ? "" : "hidden"
-        } ${selectedUser ? "block" : "hidden"}`}
-      ></div>
-      <div className={`flex-auto ${selectedUser ? "" : "hidden md:flex"}`}>
+        className={`flex-auto
+          ${selectedUser ? "block" : "hidden"}
+          md:flex md:flex-col md:w-[70%]`}
+      >
         <MessageData onBackUser={handleShowSidebar} />
       </div>
-      {/* ----- */}
     </div>
   );
 };

@@ -124,7 +124,7 @@ const Sidebar = ({ onSelectUser }) => {
   };
 
   const renderUserList = (users) => (
-    <div className="w-full  overflow-y-auto px-2 pb-4 custom-scrollbar">
+    <div className="hidden md:block w-full overflow-y-auto px-2 pb-4 custom-scrollbar">
       {users
         .filter((user) => user && user._id)
         .map((user) => (
@@ -166,7 +166,7 @@ const Sidebar = ({ onSelectUser }) => {
                 )}
             </div>
 
-            <div className="h-[1px] bg-gray-200 mx-3 my-2" />
+            {/* <div className="h-[1px] bg-gray-200 mx-3 my-2" /> */}
           </div>
         ))}
     </div>
@@ -174,7 +174,7 @@ const Sidebar = ({ onSelectUser }) => {
 
   //  bg-white/30 backdrop-blur-lg border-r border-white/40
   return (
-    <div className="relative  w-full max-w-xs flex bg-white/20 flex-col shadow-xl">
+    <div className="hidden md:flex relative w-full max-w-xs flex-col bg-white/20 shadow-xl">
       {/* 🔍 Search + Profile */}
       <div className="flex justify-between items-center px-4 py-3 bg-white/20 rounded-b-xl shadow">
         <form
