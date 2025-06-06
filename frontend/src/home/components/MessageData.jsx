@@ -124,7 +124,7 @@ function MessageData({ onBackUser }) {
           </div>
 
           {/* Messages */}
-          <div className="overflow-y-auto px-2 space-y-3 scroll-smooth flex-grow max-h-[calc(100vh-160px)]">
+          <div className="overflow-y-auto px-2 space-y-3 scroll-smooth flex-grow max-h-[calc(100vh-220px)]">
             {loading ? (
               <div className="flex justify-center items-center h-full animate-pulse">
                 <div className="loading loading-spinner text-sky-600 scale-150" />
