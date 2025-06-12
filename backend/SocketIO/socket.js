@@ -2,9 +2,14 @@
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
+const PORT = process.env.PORT || 3000;
 
 const io = new Server(server, {
     cors: {
@@ -16,8 +21,10 @@ const io = new Server(server, {
 
 const userSocketMap = {};
 
+// Utility to get socket ID for a user
 export const getReceiverSocketId = (receiverId) => userSocketMap[receiverId];
 
+// Socket.io connection
 io.on("connection", (socket) => {
     const userId = socket.handshake.query.userId;
     console.log(`✅ User connected: ${userId}, Socket ID: ${socket.id}`);
@@ -41,4 +48,5 @@ io.on("connection", (socket) => {
     });
 });
 
+// Only listen once (in main file)
 export { app, io, server };

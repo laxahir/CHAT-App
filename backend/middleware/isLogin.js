@@ -9,10 +9,9 @@ const isLogin = async (req, res, next) => {
             return res.status(401).send({ success: false, message: "User Unauthorized - No Token" });
         }
 
-        // FIX: Incorrect usage of jwt.verify
+        
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // FIX: Wait for the user to be found (async call)
         const user = await User.findById(decoded.userId).select("-password");
 
         if (!user) {

@@ -45,24 +45,25 @@
 //     </SocketContext.Provider>
 //   );
 // };
-
+// SocketContextProvider.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { io } from "socket.io-client"; // fixed import
-import { useAuth } from "./AuthContext";
+import { io } from "socket.io-client";
+import { useAuth } from "./AuthContext"; // Ensure your AuthContext exports authUser
 
-// Create context
+// Create Context
 const SocketContext = createContext();
 
-// Custom hook to use socket context
+// Custom hook to use context
 export const useSocketContext = () => useContext(SocketContext);
 
+// Provider component
 export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [onlineUser, setOnlineUser] = useState([]);
   const { authUser } = useAuth();
 
   useEffect(() => {
-    if (!authUser) {
+    if (!authUser?._id) {
       if (socket) {
         socket.disconnect();
         setSocket(null);
@@ -70,20 +71,32 @@ export const SocketContextProvider = ({ children }) => {
       return;
     }
 
-    const newSocket = io("http://localhost:8001", {
+    // Connect to backend at port 3000
+    const newSocket = io("http://localhost:3000", {
       query: {
         userId: authUser._id,
       },
-      withCredentials: true, // optional but recommended
+      withCredentials: true, // optional
+    });
+
+    // Log connection
+    newSocket.on("connect", () => {
+      console.log("✅ Connected to socket server:", newSocket.id);
+    });
+
+    // Handle online users
+    newSocket.on("getOnlineUsers", (users) => {
+      console.log("📡 Online users:", users);
+      setOnlineUser(users);
+    });
+
+    // Handle connection error
+    newSocket.on("connect_error", (err) => {
+      console.error("❌ Socket connection error:", err.message);
     });
 
     setSocket(newSocket);
 
-    newSocket.on("getOnlineUsers", (users) => {
-      setOnlineUser(users);
-    });
-
-    // Cleanup
     return () => {
       newSocket.disconnect();
       setSocket(null);

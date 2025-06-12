@@ -13,7 +13,7 @@ const ConversationSchema = mongoose.Schema({
             ref: "Message"
         }
     ]
-}, { timestamps: true }); // ✅ fixed here
+}, { timestamps: true });
 
 const Conversation = mongoose.model('Conversation', ConversationSchema);
 

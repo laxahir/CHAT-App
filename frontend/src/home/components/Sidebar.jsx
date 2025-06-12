@@ -22,12 +22,7 @@ const Sidebar = ({ onSelectUser }) => {
   const BASE_URL =
     import.meta.env.VITE_BACKEND_URL || "https://chat-app-dr53.onrender.com";
 
-  const {
-    messages,
-    setMessages,
-    selectedConversation,
-    setSelectedConversation,
-  } = userConversation();
+  const { messages, setSelectedConversation } = userConversation();
 
   // Check if the user is online
   const isOnline = (userId) => {
@@ -113,7 +108,7 @@ const Sidebar = ({ onSelectUser }) => {
         localStorage.removeItem("chatapp");
         setAuthUser(null);
         setLoading(false);
-        navigate("/login");
+        navigate("/");
       } catch (error) {
         setLoading(false);
         console.log(error);

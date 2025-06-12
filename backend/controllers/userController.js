@@ -74,7 +74,7 @@ export const userLogin = async (req, res) => {
             username: user.username,
             profilePic: user.profilePic,
             email: user.email,
-            message: "Succesfully Login good"
+            message: "Succesfully Login"
         })
     } catch (error) {
         res.status(500).send({
