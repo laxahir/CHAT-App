@@ -16,6 +16,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Resolve directory paths for static files
 // const __dirname = path.resolve();
+path.join(__dirname, "..", "frontend", "dist")
+
 
 dotenv.config();
 

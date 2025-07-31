@@ -9,8 +9,6 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-const PORT = process.env.PORT || 3000;
-
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:5173",
@@ -19,34 +17,41 @@ const io = new Server(server, {
     },
 });
 
+// Mapping userId to their socket.id
 const userSocketMap = {};
 
-// Utility to get socket ID for a user
+// Utility: get socket.id by userId
 export const getReceiverSocketId = (receiverId) => userSocketMap[receiverId];
 
-// Socket.io connection
+// Handle socket connections
 io.on("connection", (socket) => {
     const userId = socket.handshake.query.userId;
-    console.log(`✅ User connected: ${userId}, Socket ID: ${socket.id}`);
 
     if (userId && userId !== "undefined") {
         userSocketMap[userId] = socket.id;
+
+        // Notify all users about online users
         io.emit("getOnlineUsers", Object.keys(userSocketMap));
     }
 
+    // Send message instantly
     socket.on("sendMessage", ({ receiverId, newMessage }) => {
-        const receiverSocketId = getReceiverSocketId(receiverId);
+        const receiverSocketId = userSocketMap[receiverId];
         if (receiverSocketId) {
             io.to(receiverSocketId).emit("newMessage", newMessage);
         }
     });
 
+    // On disconnect: cleanup
     socket.on("disconnect", () => {
-        console.log(`❌ User disconnected: ${userId}`);
-        delete userSocketMap[userId];
+        for (const [uid, sid] of Object.entries(userSocketMap)) {
+            if (sid === socket.id) {
+                delete userSocketMap[uid];
+                break;
+            }
+        }
         io.emit("getOnlineUsers", Object.keys(userSocketMap));
     });
 });
 
-// Only listen once (in main file)
 export { app, io, server };
