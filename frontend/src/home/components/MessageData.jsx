@@ -21,8 +21,8 @@ function MessageData({ onBackUser }) {
   const [sending, setSending] = useState(false);
   const [sendData, setSendData] = useState("");
   const lastMessageRef = useRef();
-  const BASE_URL =
-    import.meta.env.VITE_BACKEND_URL || "https://chat-app-dr53.onrender.com";
+  const BASE_URL = `http://localhost:3000`;
+  // import.meta.env.VITE_BACKEND_URL || "https://chat-app-dr53.onrender.com";
 
   useEffect(() => {
     socket?.on("newMessage", (newMessage) => {

@@ -19,8 +19,9 @@ const Sidebar = ({ onSelectUser }) => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [newMessageUsers, setNewMessageUsers] = useState("");
   const { onlineUser, socket } = useSocketContext();
-  const BASE_URL =
-    import.meta.env.VITE_BACKEND_URL || "https://chat-app-dr53.onrender.com";
+  // const BASE_URL =
+  //   import.meta.env.VITE_BACKEND_URL || "https://chat-app-dr53.onrender.com";
+  const BASE_URL = `http://localhost:3000`;
 
   const { messages, setSelectedConversation } = userConversation();
 
